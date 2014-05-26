@@ -45,9 +45,13 @@ void inicializaHash(int tamanho) {
 }
 
 int main() {
+    
     printf("Tamanho do Tipo_aluno:%d\n", sizeof (tipo_aluno));
+    
     printf("Tamanho do Tipo_cabeca:%d\n", sizeof (tipo_cabeca));
+
     printf("Tamanho do Tipo_incio:%d\n", sizeof (tipo_inicio));
+
     printf("Tamanho do Tipo_registro:%d\n", sizeof (tipo_registro));
 
     inicializaHash(MAX);
