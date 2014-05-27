@@ -27,21 +27,25 @@ union tipo_inicio {
     tipo_cabeca cabeca;
     char nada[100];
 };
+
 void recebeAluno(tipo_aluno &aluno) {
     printf("RA    :");
     scanf("%i", &aluno.ra);
     printf("NOME  :");
-    scanf("%s",aluno.nome); //TODO TROCAR POR FUNÇÃO
+    scanf("%s", aluno.nome); //TODO TROCAR POR FUNÇÃO
     printf("NOTA  :");
     scanf("%f", &aluno.nota);
 }
 
-void mostraAluno(tipo_aluno aluno){
-    printf ("%5d %-50s %4.1f\n",aluno.ra,aluno.nome,aluno.nota);
+void mostraAluno(tipo_aluno aluno) {
+    printf("%5d %-50s %4.1f\n", aluno.ra, aluno.nome, aluno.nota);
 }
 
-
 void inicializaHash(int tamanho) {
+    //TAREFA Verificar se o arquivo existe?
+
+
+
     printf("Criando arquvo hash...");
     FILE* arq = fopen("hash.arq", "wb");
     tipo_inicio inicio;
@@ -57,24 +61,40 @@ void inicializaHash(int tamanho) {
     printf("Pronto.\n");
 }
 
+int menu() {
+    printf("[1] Inserir\n");
+    printf("[2] Alterar\n");
+    printf("[3] Excluir\n");
+    printf("[4] Procurar\n");
+    printf("[5] Listar\n");
+    printf("[0] Sair\n");
+    printf("\nOPCAO:");
+    int opcao;
+    scanf("%d", &opcao);
+    return opcao;
+    
+    
+}
 
 int main() {
-
-    printf("Tamanho do Tipo_aluno:%d\n", sizeof (tipo_aluno));
-
-    printf("Tamanho do Tipo_cabeca:%d\n", sizeof (tipo_cabeca));
-
-    printf("Tamanho do Tipo_incio:%d\n", sizeof (tipo_inicio));
-
-    printf("Tamanho do Tipo_registro:%d\n", sizeof (tipo_registro));
-
     inicializaHash(MAX);
-    
-    tipo_aluno aluno;
-    recebeAluno(aluno);
-    mostraAluno(aluno);
-
-
-    
+    FILE *arq = abrirArquivo();
+    int o =;
+    do {
+        o = menu();
+        switch o :
+            case 1:inserir(arq);
+        break;
+        case 2:alterar(arq);
+        break;
+        case 3:excluir(arq);
+        break;
+        case 4:procurar(arq);
+        break;
+        case 5:listar(arq);
+        break;
+        case
+    } while (o != 0);
+    fecharArquivo();
 }
 
