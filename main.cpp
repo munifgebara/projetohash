@@ -27,6 +27,19 @@ union tipo_inicio {
     tipo_cabeca cabeca;
     char nada[100];
 };
+void recebeAluno(tipo_aluno &aluno) {
+    printf("RA    :");
+    scanf("%i", &aluno.ra);
+    printf("NOME  :");
+    scanf("%s",aluno.nome); //TODO TROCAR POR FUNÇÃO
+    printf("NOTA  :");
+    scanf("%f", &aluno.nota);
+}
+
+void mostraAluno(tipo_aluno aluno){
+    printf ("%5d %-50s %4.1f\n",aluno.ra,aluno.nome,aluno.nota);
+}
+
 
 void inicializaHash(int tamanho) {
     printf("Criando arquvo hash...");
@@ -41,13 +54,14 @@ void inicializaHash(int tamanho) {
         fwrite(&registro, sizeof (registro), 1, arq);
     }
     fclose(arq);
-    printf("Pronto.");
+    printf("Pronto.\n");
 }
 
+
 int main() {
-    
+
     printf("Tamanho do Tipo_aluno:%d\n", sizeof (tipo_aluno));
-    
+
     printf("Tamanho do Tipo_cabeca:%d\n", sizeof (tipo_cabeca));
 
     printf("Tamanho do Tipo_incio:%d\n", sizeof (tipo_inicio));
@@ -55,8 +69,12 @@ int main() {
     printf("Tamanho do Tipo_registro:%d\n", sizeof (tipo_registro));
 
     inicializaHash(MAX);
+    
+    tipo_aluno aluno;
+    recebeAluno(aluno);
+    mostraAluno(aluno);
 
 
-    return 0;
+    
 }
 
