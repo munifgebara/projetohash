@@ -114,6 +114,7 @@ void inserir(FILE* arq) {
         printf ("A posicao %d esta ocupada.\n",posLogica);
         fseek(arq,0,SEEK_END);
         int posicaoLogicaNovo=calculaPosLogica(ftell(arq));
+        novoRegistro.proximo=registroEmDisco.proximo;
         fwrite(&novoRegistro,sizeof(tipo_registro),1,arq);
         fseek(arq,posFisica,SEEK_SET);
         registroEmDisco.proximo=posicaoLogicaNovo;
