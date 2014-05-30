@@ -122,16 +122,52 @@ void inserir(FILE* arq) {
     }
 }
 
+//TRABALHO COMPLETAR O CÓDIGO DESTA FUNÇÃO
 void alterar(FILE* arq) { //Tarefa Alterar NAO PODE ALTERAR A CHAVE
+    int ra;
+    printf("RA    :");
+    scanf("%i", &ra);
+    int posicaoLogica = calculaHash(ra);
+    fseek(arq, calculaPosFisica(posicaoLogica), SEEK_SET);
+    tipo_registro reg;
+    fread(&reg, sizeof (tipo_registro), 1, arq);
+    if (reg.aluno.ra == ra) {
+        printf("Registro encontrado\n");
+        fseek(arq, -sizeof (tipo_registro), SEEK_CUR);
+        printf("NOME  :");
+        scanf("%s", reg.aluno.nome); //TODO TROCAR POR FUNÇÃO
+        printf("NOTA  :");
+        scanf("%f", &reg.aluno.nota);
+        fwrite(&reg, sizeof (tipo_registro), 1, arq);
+    } else {
+        printf("Registro nao encontrado\n");
+    }
 
 }
 
+//TRABALHO COMPLETAR O CÓDIGO DESTA FUNÇÃO
 void excluir(FILE* arq) { //Pensar como fazer
-
+    int ra;
+    printf("RA    :");
+    scanf("%i", &ra);
+    int posicaoLogica = calculaHash(ra);
+    fseek(arq, calculaPosFisica(posicaoLogica), SEEK_SET);
+    tipo_registro reg;
+    fread(&reg, sizeof (tipo_registro), 1, arq);
+    if (reg.aluno.ra == ra && reg.proximo == -1) {
+        printf("Registro encontrado e excluido\n");
+        fseek(arq, -sizeof (tipo_registro), SEEK_CUR);
+        reg.proximo = -2;
+        fwrite(&reg, sizeof (tipo_registro), 1, arq);
+    } else {
+        printf("Registro nao encontrado\n");
+    }
 }
 
-//MELHORAR O CÓDIGO DESTA FUNÇÃO
-void procurar(FILE* arq) { //Tarefa digita o RA e diz e se existe mostra os dados
+
+//TRABALHO MELHORAR O CÓDIGO DESTA FUNÇÃO
+
+void procurar(FILE * arq) { //Tarefa digita o RA e diz e se existe mostra os dados
     int ra;
     printf("RA    :");
     scanf("%i", &ra);
@@ -155,15 +191,15 @@ void procurar(FILE* arq) { //Tarefa digita o RA e diz e se existe mostra os dado
                     break;
                 }
             }
-            if (reg.aluno.ra!=ra){
-                printf ("Ra nao encontrado nem na area de colisao\n");
+            if (reg.aluno.ra != ra) {
+                printf("Ra nao encontrado nem na area de colisao\n");
             }
         }
     }
 
 }
 
-void listar(FILE* arq) {
+void listar(FILE * arq) {
     fseek(arq, calculaPosFisica(0), SEEK_SET);
     tipo_registro reg;
     int posicao = 0;
